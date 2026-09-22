@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
+    <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,17 +68,9 @@
 
 <body>
     <div class="container">
-        <h1>Register</h1>
-        <form method="POST" action="/register">
+        <h1>Login</h1>
+        <form method="POST" action="/login">
             @csrf
-            <div>
-                <label for="username">username</label>
-                <input type="text" id="username" name="username" value="{{ old('username') }}">
-
-                @error('username')
-                    <p>{{ $message }}</p>
-                @enderror
-            </div>
             <div>
                 <label for="email">email</label>
                 <input type="text" id="email" name="email" value="{{ old('email') }}">
@@ -95,20 +87,16 @@
                     <p>{{ $message }}</p>
                 @enderror
             </div>
-            <div>
-                <label for="password_confirmation">confirm password</label>
-                <input type="text" id="password_confirmation" name="password_confirmation">
-            </div>
             <div class="buttons">
-                <button type="submit">register</button>
+                <button type="submit">login</button>
             </div>
         </form>
         <div class="link">
-            Already have an account?
-            <a href="/login">login here</a>
+            Don't have an account?
+            <a href="/register">register here</a>
         </div>
-
     </div>
+
 
 </body>
 
