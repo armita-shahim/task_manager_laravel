@@ -47,6 +47,10 @@
             border-radius: 5px;
         }
 
+        button:hover {
+            background: #1d4ed8;
+        }
+
         .buttons {
             text-align: center;
         }
@@ -73,7 +77,7 @@
             @csrf
             <div>
                 <label for="username">username</label>
-                <input type="text" id="username" name="username" value="{{ old('username') }}">
+                <input type="text" id="username" name="username">
 
                 @error('username')
                     <p>{{ $message }}</p>
@@ -81,7 +85,7 @@
             </div>
             <div>
                 <label for="email">email</label>
-                <input type="text" id="email" name="email" value="{{ old('email') }}">
+                <input type="text" id="email" name="email">
 
                 @error('email')
                     <p>{{ $message }}</p>

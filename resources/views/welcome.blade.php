@@ -31,6 +31,10 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
     </style>
 </head>
 
@@ -44,10 +48,10 @@
 
     </div>
 
-    {{-- <form method="POST" action="/logout">
+    <form method="POST" action="/logout">
         @csrf
         <button type="submit">logout</button>
-    </form> --}}
+    </form>
 
 </body>
 

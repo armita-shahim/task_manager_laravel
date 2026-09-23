@@ -51,6 +51,10 @@
             text-align: center;
         }
 
+        button:hover {
+            background: #1d4ed8;
+        }
+
         .error {
             color: #ff6b6b;
         }
@@ -73,7 +77,7 @@
             @csrf
             <div>
                 <label for="email">email</label>
-                <input type="text" id="email" name="email" value="{{ old('email') }}">
+                <input type="text" id="email" name="email">
 
                 @error('email')
                     <p>{{ $message }}</p>
