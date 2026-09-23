@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Enums\Priority;
+use App\Enums\Status;
 
 class Task extends Model
 {
@@ -13,7 +15,11 @@ class Task extends Model
 
     protected function casts(): array
     {
-        return ['due_date' => 'date'];
+        return [
+            'due_date' => 'date',
+            'priority' => Priority::class,
+            'status' => Status::class
+        ];
     }
 
     public function category()

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Enums\Role;
 
 
 class User extends Authenticatable
@@ -18,6 +19,7 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
+            'role' => Role::class
         ];
     }
 
