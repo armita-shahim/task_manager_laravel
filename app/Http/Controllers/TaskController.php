@@ -3,15 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Task;
 use App\Models\Category;
+use App\Enums\Role;
 
 class TaskController extends Controller
 {
 
     public function index()
     {
-        $tasks = Task::all();
+        $user = Auth::user();
+        if ($user->role === Role::ADMIN) {
+            $tasks = Task::all();
+        } else {
+            $tasks = $user->tasks()->get();
+        }
+
         return view('tasks.index', ['tasks' => $tasks]);
     }
 
@@ -24,29 +33,51 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         Task::create($request->validated());
-        return redirect('/tasks');
+        return redirect('/tasks')->with('message', 'task created successfully');
     }
-
-    // public function show(Task $task)
-    // {
-    //     return view('tasks.show', ['task' => $task]);
-    // }
 
     public function edit(Task $task)
     {
+        Gate::authorize('update', $task);
         $categories = Category::all();
         return view('tasks.edit', ['task' => $task, 'categories' => $categories]);
     }
 
     public function update(TaskRequest $request, Task $task)
     {
+        Gate::authorize('update', $task);
         $task->update($request->validated());
-        return redirect("/tasks/{$task->id}");
+        return redirect('/tasks')->with('message', 'task updated successfully');
     }
 
     public function destroy(Task $task)
     {
+        Gate::authorize('delete', $task);
         $task->delete();
-        return redirect('/tasks');
+        return redirect('/tasks')->with('message', 'task deleted successfully');
+    }
+
+    public function deletedTasks()
+    {
+        $user = Auth::user();
+
+        if ($user->role === Role::ADMIN) {
+            $tasks = Task::onlyTrashed()->get();
+        } else {
+            $tasks = $user->tasks()->onlyTrashed()->get();
+        }
+
+        return view('tasks.deleted', ['tasks' => $tasks]);
+    }
+
+    public function restore(int $task)
+    {
+        $task = Task::withTrashed()->findOrFail($task);
+
+        Gate::authorize('restore', $task);
+
+        $task->restore();
+
+        return redirect('/tasks')->with('message', 'task restored successfully');
     }
 }
