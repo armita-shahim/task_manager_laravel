@@ -34,4 +34,9 @@ class TaskPolicy
 
         return $user->tasks()->whereKey($task->id)->exists();
     }
+
+    public function assignUsers(User $user, Task $task)
+    {
+        return $user->role === Role::ADMIN;
+    }
 }
