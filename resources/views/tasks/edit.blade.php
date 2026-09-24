@@ -112,9 +112,17 @@
                 <label for="priority">priority</label>
 
                 <select id="priority" name="priority">
-                    <option value="low">low</option>
-                    <option value="normal">normal</option>
-                    <option value="high">high</option>
+                    <option value="low" @if ($task->priority === \App\Enums\Priority::LOW) selected @endif>
+                        low
+                    </option>
+
+                    <option value="normal" @if ($task->priority === \App\Enums\Priority::NORMAL) selected @endif>
+                        normal
+                    </option>
+
+                    <option value="high" @if ($task->priority === \App\Enums\Priority::HIGH) selected @endif>
+                        high
+                    </option>
                 </select>
 
                 @error('priority')
@@ -124,7 +132,6 @@
 
             <div>
                 <label for="due_date">due date</label>
-
                 <input type="date" id="due_date" name="due_date" value="{{ $task->due_date->format('Y-m-d') }}">
 
                 @error('due_date')
@@ -136,11 +143,17 @@
                 <label for="status">status</label>
 
                 <select id="status" name="status">
-                    <option value="not_started">not started
+                    <option value="not_started" @if ($task->status === \App\Enums\Status::NOT_STARTED) selected @endif>
+                        not started
                     </option>
-                    <option value="in_progress">in progress
+
+                    <option value="in_progress" @if ($task->status === \App\Enums\Status::IN_PROGRESS) selected @endif>
+                        in progress
                     </option>
-                    <option value="done">done</option>
+
+                    <option value="done" @if ($task->status === \App\Enums\Status::DONE) selected @endif>
+                        done
+                    </option>
                 </select>
 
                 @error('status')
@@ -153,12 +166,10 @@
 
                 <select id="category_id" name="category_id">
 
-                    {{-- <option value="">no category</option> --}}
-
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}"
-                            {{ $task->category_id == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}</option>
+                        <option value="{{ $category->id }}" @if ($task->category_id === $category->id) selected @endif>
+                            {{ $category->name }}
+                        </option>
                     @endforeach
 
                 </select>

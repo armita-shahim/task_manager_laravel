@@ -96,6 +96,9 @@
                             @method('DELETE')
                             <button class="button" type="submit">delete</button>
                         </form>
+                        @if (Auth::user()->role === App\Enums\Role::ADMIN)
+                            <a class="button" href="/tasks/{{ $task->id }}/assign-users">assign users</a>
+                        @endif
                     </div>
                 </div>
             @endforeach
