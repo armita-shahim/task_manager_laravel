@@ -101,7 +101,7 @@
             </div>
             <div>
                 <label for="password_confirmation">confirm password</label>
-                <input type="text" id="password_confirmation" name="password_confirmation">
+                <input type="password" id="password_confirmation" name="password_confirmation">
             </div>
             <div class="buttons">
                 <button type="submit">register</button>

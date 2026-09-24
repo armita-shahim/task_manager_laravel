@@ -88,7 +88,7 @@
                     <div class="actions">
                         <form method="POST" action="/tasks/{{ $task->id }}/restore">
                             @csrf
-                            @method('PATCH')
+                            @method('PUT')
 
                             <button class="button" type="submit">restore</button>
                         </form>
