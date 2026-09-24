@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('priority');
             $table->date('due_date');
             $table->string('status');
-            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
