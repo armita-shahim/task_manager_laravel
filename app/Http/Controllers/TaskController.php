@@ -18,7 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->role === Role::ADMIN) {
+        if ($user->isAdmin()) {
             $tasks = Task::all();
         } else {
             $tasks = $user->tasks()->get();
@@ -35,7 +35,8 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-        Task::create($request->validated());
+        $task = Task::create($request->validated());
+        $task->users()->attach(Auth::id());
         return redirect('/tasks')->with('message', 'task created successfully');
     }
 
@@ -64,7 +65,7 @@ class TaskController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role === Role::ADMIN) {
+        if ($user->isAdmin()) {
             $tasks = Task::onlyTrashed()->get();
         } else {
             $tasks = $user->tasks()->onlyTrashed()->get();
@@ -73,9 +74,9 @@ class TaskController extends Controller
         return view('tasks.deleted', ['tasks' => $tasks]);
     }
 
-    public function restore(int $task)
+    public function restore(int $taskId)
     {
-        $task = Task::withTrashed()->findOrFail($task);
+        $task = Task::withTrashed()->findOrFail($taskId);
 
         Gate::authorize('restore', $task);
 

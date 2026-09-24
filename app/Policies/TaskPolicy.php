@@ -4,13 +4,12 @@ namespace App\Policies;
 
 use App\Models\Task;
 use App\Models\User;
-use App\Enums\Role;
 
 class TaskPolicy
 {
     public function update(User $user, Task $task): bool
     {
-        if ($user->role === Role::ADMIN) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -19,7 +18,7 @@ class TaskPolicy
 
     public function delete(User $user, Task $task): bool
     {
-        if ($user->role === Role::ADMIN) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -28,15 +27,15 @@ class TaskPolicy
 
     public function restore(User $user, Task $task): bool
     {
-        if ($user->role === Role::ADMIN) {
+        if ($user->isAdmin()) {
             return true;
         }
 
         return $user->tasks()->whereKey($task->id)->exists();
     }
 
-    public function assignUsers(User $user, Task $task)
+    public function assignUsers(User $user, Task $task): bool
     {
-        return $user->role === Role::ADMIN;
+        return $user->isAdmin();
     }
 }
