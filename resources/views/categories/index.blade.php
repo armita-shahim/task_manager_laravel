@@ -30,6 +30,7 @@
             @endforeach
 
         @endif
+        {{ $categories->links() }}
 
     </div>
 @endsection

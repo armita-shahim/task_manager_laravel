@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         Gate::authorize('viewAny', Category::class);
 
-        $categories = Category::all();
+        $categories = Category::paginate(10);
 
         return view('categories.index', ['categories' => $categories]);
     }

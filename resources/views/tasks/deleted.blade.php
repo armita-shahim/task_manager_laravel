@@ -33,5 +33,6 @@
         <div class="link">
             <a href="/tasks">back to tasks</a>
         </div>
+        {{ $tasks->links() }}
     </div>
 @endsection

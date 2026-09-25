@@ -133,6 +133,11 @@
         nav button:hover {
             background: #1d4ed8;
         }
+
+        svg {
+            width: 14px !important;
+            height: 14px !important;
+        }
     </style>
 </head>
 

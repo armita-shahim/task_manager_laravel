@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         Gate::authorize('viewAny', User::class);
 
-        $users = User::all();
+        $users = User::paginate(10);
 
         return view('users.index', ['users' => $users]);
     }

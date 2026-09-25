@@ -19,9 +19,9 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($user->isAdmin()) {
-            $tasks = Task::all();
+            $tasks = Task::paginate(10);
         } else {
-            $tasks = $user->tasks()->get();
+            $tasks = $user->tasks()->paginate(10);
         }
 
         return view('tasks.index', ['tasks' => $tasks]);
@@ -66,9 +66,9 @@ class TaskController extends Controller
         $user = Auth::user();
 
         if ($user->isAdmin()) {
-            $tasks = Task::onlyTrashed()->get();
+            $tasks = Task::onlyTrashed()->paginate(10);
         } else {
-            $tasks = $user->tasks()->onlyTrashed()->get();
+            $tasks = $user->tasks()->onlyTrashed()->paginate(10);
         }
 
         return view('tasks.deleted', ['tasks' => $tasks]);

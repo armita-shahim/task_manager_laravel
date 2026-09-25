@@ -37,5 +37,6 @@
             @endforeach
 
         @endif
+        {{ $tasks->links() }}
     </div>
 @endsection
