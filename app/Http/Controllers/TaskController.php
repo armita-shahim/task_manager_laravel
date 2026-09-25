@@ -35,7 +35,9 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         $task = Task::create($request->validated());
-        $task->users()->attach(Auth::id());
+        if (!Auth::user()->isAdmin()) {
+            $task->users()->attach(Auth::id());
+        }
         return redirect('/tasks')->with('message', 'task created successfully');
     }
 
