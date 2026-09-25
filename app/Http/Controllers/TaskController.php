@@ -18,9 +18,9 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($user->isAdmin()) {
-            $tasks = Task::orderBy('due_date')->paginate(10);
+            $tasks = Task::with(['category', 'users'])->orderBy('due_date')->paginate(10);
         } else {
-            $tasks = $user->tasks()->orderBy('due_date')->paginate(10);
+            $tasks = $user->tasks()->with(['category', 'users'])->orderBy('due_date')->paginate(10);
         }
 
         return view('tasks.index', ['tasks' => $tasks]);
