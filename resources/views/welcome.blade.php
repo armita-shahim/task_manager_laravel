@@ -48,11 +48,6 @@
 
     </div>
 
-    <form method="POST" action="/logout">
-        @csrf
-        <button type="submit">logout</button>
-    </form>
-
 </body>
 
 </html>

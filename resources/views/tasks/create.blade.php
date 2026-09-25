@@ -1,87 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
+@section('title', 'Create Task')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Task</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
-        }
-
-        .container {
-            width: 400px;
-            margin: 60px auto;
-            padding: 25px;
-            background: #1e293b;
-            border-radius: 10px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        input,
-        textarea,
-        select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-        }
-
-        textarea {
-            height: 100px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 8px 20px;
-            margin-bottom: 20px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-        }
-
-        .button:hover {
-            background: #1d4ed8;
-        }
-
-        .buttons {
-            text-align: center;
-        }
-
-        /* .error {
-            color: #ff6b6b;
-        } */
-
-        .link {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        a {
-            color: #60a5fa;
-        }
-    </style>
-</head>
-
-<body>
     <div class="container">
         <h1>Create Task</h1>
 
@@ -147,7 +67,6 @@
                 <label for="category_id">category</label>
 
                 <select id="category_id" name="category_id">
-                    {{-- <option value="">no category</option> --}}
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -167,7 +86,4 @@
         </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection
