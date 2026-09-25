@@ -22,6 +22,14 @@
                     @if ($task->category)
                         <p>category: {{ $task->category->name }}</p>
                     @endif
+                    @if (Auth::user()->isAdmin())
+                        <p>
+                            assigned to:
+                            @foreach ($task->users as $user)
+                                {{ $user->username }}
+                            @endforeach
+                        </p>
+                    @endif
                     <div class="actions">
                         <a class="button" href="/tasks/{{ $task->id }}/edit">edit</a>
                         <form method="POST" action="/tasks/{{ $task->id }}" style="display: inline">
