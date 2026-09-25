@@ -6,23 +6,30 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register', function () {
+    if (Auth::check()) {
+        return redirect('/tasks')->with('message', 'you are already logged in');
+    }
+    return view('auth.register');
+});
+
+Route::get('/login', function () {
+    if (Auth::check()) {
+        return redirect('/tasks')->with('message', 'you are already logged in');
+    }
+    return view('auth.login');
+});
+
 Route::middleware('guest')->group(function () {
-    Route::get('/register', function () {
-        return view('auth.register');
-    });
-
     Route::post('/register', [AuthController::class, 'register']);
-
-    Route::get('/login', function () {
-        return view('auth.login');
-    });
-
     Route::post('/login', [AuthController::class, 'login']);
 });
 
