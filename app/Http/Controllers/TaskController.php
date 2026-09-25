@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Category;
-use App\Enums\Role;
 use App\Http\Requests\AssignUsersRequest;
 
 class TaskController extends Controller
@@ -19,9 +18,9 @@ class TaskController extends Controller
     {
         $user = Auth::user();
         if ($user->isAdmin()) {
-            $tasks = Task::paginate(10);
+            $tasks = Task::orderBy('due_date')->paginate(10);
         } else {
-            $tasks = $user->tasks()->paginate(10);
+            $tasks = $user->tasks()->orderBy('due_date')->paginate(10);
         }
 
         return view('tasks.index', ['tasks' => $tasks]);
